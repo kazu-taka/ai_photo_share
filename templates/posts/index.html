@@ -1,5 +1,36 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>写真共有アプリ</h1>
+<section class="hero">
+  <p class="hero-badge">PHOTO SHARE</p>
+  <h1 class="hero-title"><span>写真共有</span><span>アプリ</span></h1>
+  <p class="hero-copy">撮った一枚を、<br>みんなの笑顔に。</p>
+  <p class="hero-lead">旅行や日常の写真を、友だちと見せ合う場所。</p>
+  {% if not current_user.is_authenticated %}
+    <div class="hero-actions">
+      <a class="btn btn-pink" href="{{ url_for('register') }}">はじめる <span class="btn-arrow">→</span></a>
+      <a class="btn btn-white" href="{{ url_for('login') }}">ログイン</a>
+    </div>
+  {% endif %}
+</section>
+<section class="feed">
+  {% if posts %}
+    {% for post in posts %}
+      <article class="post-card">
+        <img src="{{ url_for('uploaded_file', filename=post.image_filename) }}" alt="{{ post.caption or post.user.username ~ 'の写真' }}">
+        <div class="post-body">
+          <p class="post-meta">
+            <span>{{ post.user.username }}</span>
+            <time class="post-time" datetime="{{ post.created_at.strftime('%Y-%m-%dT%H:%M') }}">{{ post.created_at.strftime('%Y-%m-%d %H:%M') }}</time>
+          </p>
+          {% if post.caption %}
+            <p class="post-caption">{{ post.caption }}</p>
+          {% endif %}
+        </div>
+      </article>
+    {% endfor %}
+  {% else %}
+    <p class="empty-note">投稿はまだありません。</p>
+  {% endif %}
+</section>
 {% endblock %}

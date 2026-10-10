@@ -18,3 +18,6 @@ instance/
 flask_session/
 
 .DS_Store
+
+uploads/posts/*
+!uploads/posts/.gitkeep

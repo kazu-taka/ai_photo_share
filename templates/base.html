@@ -2,9 +2,54 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}写真共有アプリ{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Zen+Maru+Gothic:wght@700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-  {% block content %}{% endblock %}
+  <div class="blobs" aria-hidden="true">
+    <span class="blob blob-yellow"></span>
+    <span class="blob blob-pink"></span>
+    <span class="blob blob-purple"></span>
+    <span class="blob blob-orange"></span>
+  </div>
+
+  <header class="site-header">
+    <a class="logo" href="{{ url_for('index') }}"><span class="logo-dot"></span>写真共有</a>
+  </header>
+
+  <nav class="side-tabs" aria-label="メインメニュー">
+    <a class="tab tab-white" href="{{ url_for('index') }}">投稿一覧</a>
+    {% if current_user.is_authenticated %}
+      <form class="tab-form" method="post" action="{{ url_for('logout') }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <button class="tab-pink" type="submit">ログアウト</button>
+      </form>
+    {% else %}
+      <a class="tab tab-purple" href="{{ url_for('login') }}">ログイン</a>
+      <a class="tab tab-pink" href="{{ url_for('register') }}">ユーザー登録</a>
+    {% endif %}
+  </nav>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  {% if current_user.is_authenticated %}
+    <a class="post-fab" href="{{ url_for('post_new') }}" aria-label="投稿する">+</a>
+  {% endif %}
+
+  <footer class="site-footer">
+    <svg class="wave" viewBox="0 0 1440 56" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 28 C180 56 360 0 540 28 C720 56 900 0 1080 28 C1260 56 1350 14 1440 28 L1440 56 L0 56 Z" fill="#ffffff"></path>
+    </svg>
+    <div class="footer-inner">
+      <p class="footer-logo">写真共有アプリ</p>
+      <p class="footer-copy">写真を、友だちと。</p>
+    </div>
+  </footer>
 </body>
 </html>

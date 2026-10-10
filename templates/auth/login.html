@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}ログイン - 写真共有アプリ{% endblock %}
+
+{% block content %}
+<section class="card">
+  <div class="card-head">
+    <p class="card-en">LOGIN</p>
+    <h1 class="card-title">ログイン</h1>
+  </div>
+  {% if login_error %}
+    <p class="form-error">{{ login_error }}</p>
+  {% endif %}
+  <form method="post">
+    {{ form.hidden_tag() }}
+    <div class="field">
+      {{ form.username.label }}
+      {{ form.username(autocomplete="username") }}
+      {% for error in form.username.errors %}
+        <span class="field-error">{{ error }}</span>
+      {% endfor %}
+    </div>
+    <div class="field">
+      {{ form.password.label }}
+      {{ form.password(autocomplete="current-password") }}
+      {% for error in form.password.errors %}
+        <span class="field-error">{{ error }}</span>
+      {% endfor %}
+    </div>
+    <button class="btn btn-pink btn-block" type="submit">ログイン <span class="btn-arrow">→</span></button>
+  </form>
+  <p class="card-foot">はじめての方は <a href="{{ url_for('register') }}">ユーザー登録</a></p>
+</section>
+{% endblock %}

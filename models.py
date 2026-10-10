@@ -1,6 +1,7 @@
 import datetime
 from pathlib import Path
 
+from flask_login import UserMixin
 from peewee import (
     CharField,
     DateTimeField,
@@ -22,7 +23,7 @@ class BaseModel(Model):
         database = db
 
 
-class User(BaseModel):
+class User(UserMixin, BaseModel):
     username = CharField(max_length=30, unique=True, collation="NOCASE")
     email = CharField(max_length=254, unique=True, collation="NOCASE")
     password_hash = TextField()

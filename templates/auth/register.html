@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}ユーザー登録 - 写真共有アプリ{% endblock %}
+
+{% block content %}
+<section class="card">
+  <div class="card-head">
+    <p class="card-en">SIGN UP</p>
+    <h1 class="card-title">ユーザー登録</h1>
+  </div>
+  <form method="post">
+    {{ form.hidden_tag() }}
+    <div class="field">
+      {{ form.username.label }}
+      {{ form.username(autocomplete="username") }}
+      <span class="hint">英数字とアンダースコア（_）で3〜30文字</span>
+      {% for error in form.username.errors %}
+        <span class="field-error">{{ error }}</span>
+      {% endfor %}
+    </div>
+    <div class="field">
+      {{ form.email.label }}
+      {{ form.email(autocomplete="email") }}
+      {% for error in form.email.errors %}
+        <span class="field-error">{{ error }}</span>
+      {% endfor %}
+    </div>
+    <div class="field">
+      {{ form.password.label }}
+      {{ form.password(autocomplete="new-password") }}
+      <span class="hint">8文字以上</span>
+      {% for error in form.password.errors %}
+        <span class="field-error">{{ error }}</span>
+      {% endfor %}
+    </div>
+    <button class="btn btn-pink btn-block" type="submit">登録する <span class="btn-arrow">→</span></button>
+  </form>
+  <p class="card-foot">アカウントをお持ちの方は <a href="{{ url_for('login') }}">ログイン</a></p>
+</section>
+{% endblock %}

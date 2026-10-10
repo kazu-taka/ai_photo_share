@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}投稿する - 写真共有アプリ{% endblock %}
+
+{% block content %}
+<section class="card">
+  <div class="card-head">
+    <p class="card-en">NEW POST</p>
+    <h1 class="card-title">写真を投稿する</h1>
+  </div>
+  <form method="post" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    <div class="field">
+      {{ form.image.label }}
+      {{ form.image() }}
+      <span class="hint">png、jpg、jpeg、gif。5MBまで</span>
+      {% for error in form.image.errors %}
+        <span class="field-error">{{ error }}</span>
+      {% endfor %}
+    </div>
+    <div class="field">
+      {{ form.caption.label }}
+      {{ form.caption(placeholder="ひとこと（空でも投稿できます）") }}
+      {% for error in form.caption.errors %}
+        <span class="field-error">{{ error }}</span>
+      {% endfor %}
+    </div>
+    <button class="btn btn-pink btn-block" type="submit">投稿する <span class="btn-arrow">→</span></button>
+  </form>
+</section>
+{% endblock %}
