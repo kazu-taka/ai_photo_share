@@ -1,0 +1,15 @@
+---
+description: 写真共有アプリの技術枠、作業範囲、秘密情報、画像の保存先
+alwaysApply: true
+---
+
+# 写真共有アプリ
+
+学習用の写真共有アプリ。公開やデプロイはしない。
+
+- 技術枠は Flask と Peewee。SQLAlchemy など別のフレームワークや ORM に替えない
+- 機能は小さく分け、依頼された範囲だけ実装する。コメント、検索、フォロー、投稿詳細は初期版では追加しない
+- 秘密情報をコードに書かない。`SECRET_KEY` は `.env` から読む
+- 投稿画像はプロジェクト直下の `uploads/` に置く。`static/` 配下には置かない。`static/` は CSS 用
+
+詳細は `docs/ai_context.md` と `docs/coding_rules.md` を参照する。画面・URL・テーブルは `docs/screens.md`、`docs/routes.md`、`docs/database.md` に従う。
